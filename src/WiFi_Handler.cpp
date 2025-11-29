@@ -151,6 +151,12 @@ bool WiFiConnectToAP( const char * ssid, const char * password )
 	Serial.print("--->  IP address: ");
 	Serial.println(WiFi.localIP());
 
+	#ifdef USE_LCD
+		LCD_SetCursor(1, 0);
+		LCD_Write(1, 0, "               ");
+		LCD_Write(1, 0, WiFi.localIP().toString().c_str());
+	#endif // USE_LCD
+
 	return true;
 }
 

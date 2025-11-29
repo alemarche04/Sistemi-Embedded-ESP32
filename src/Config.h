@@ -6,11 +6,11 @@
 
 #include <Arduino.h>
 
-#undef   USE_LED
-#define  USE_LED
+#undef   	USE_LED
+#define  	USE_LED
 
-#undef   USE_BUTTON
-#define  USE_BUTTON
+#undef   	USE_BUTTON
+#define  	USE_BUTTON
 
 #undef		USE_LCD
 #define		USE_LCD
@@ -34,7 +34,7 @@
 #define				COMMAND_BUFFER_SIZE				32
 extern char 		command[COMMAND_BUFFER_SIZE];
 extern int 			bufferOccupation;	
-void 				ProcessCommand( );
+void 				ProcessCommand();
 /* -------------------------------------------------------------------------- */
 
 
@@ -43,11 +43,11 @@ void 				ProcessCommand( );
 /* -------------------------------------------------------------------------- */
 #ifdef USE_LED
 
-int 	LEDInit( int pin );
-void	LEDon( int pin );
-void  	LEDoff( int pin );
-void 	LEDflash(int pin, int durationSec, int timelapMs = 1000 );
-bool	LEDTest( int pin );
+int 	LEDInit(int pin);
+void	LEDon(int pin);
+void  	LEDoff(int pin);
+void 	LEDflash(int pin, int durationSec, int timelapMs = 1000);
+bool	LEDTest(int pin);
 
 #endif // USE_LED
 /* -------------------------------------------------------------------------- */
@@ -58,9 +58,9 @@ bool	LEDTest( int pin );
 /* -------------------------------------------------------------------------- */
 #ifdef USE_BUTTON
 
-int  ButtonInit( const int pin );
-bool ButtonPressed( const int pin );
-bool ButtonTest( int pin );
+int  ButtonInit(const int pin);
+bool ButtonPressed(const int pin);
+bool ButtonTest(int pin);
 
 #endif // USE_BUTTON
 /* -------------------------------------------------------------------------- */
@@ -70,10 +70,17 @@ bool ButtonTest( int pin );
 /*                                 LCD SECTION                                */
 /* -------------------------------------------------------------------------- */
 #ifdef USE_LCD
+
+	#include <Wire.h>
 	#include <LiquidCrystal_I2C.h>
 
+	#define NUM_ROWS	2
+	#define NUM_COLS	16
+
+	extern LiquidCrystal_I2C lcd; // global variable to set the LCD address
+
 	bool LCD_Init(int numRows, int numCols);
-	void LCD_Write(int row, int col, char * message);
+	void LCD_Write(int row, int col, const char * message);
 	void LCD_Clear();
 	void LCD_SetCursor(int row, int col);
 #endif // USE_LCD
@@ -108,20 +115,20 @@ bool ButtonTest( int pin );
 		#define		REMOTE_SERVER_PORT			11777
 	#endif
 
-	bool WiFiInit( int wifiMod );
-	bool WiFiConnectToAP( const char * ssid = 0, const char * password = 0 );
-	bool WiFiInitAP( const char * ssid, const char * password );
+	bool WiFiInit(int wifiMod);
+	bool WiFiConnectToAP(const char * ssid = 0, const char * password = 0);
+	bool WiFiInitAP(const char * ssid, const char * password);
 
 	/// @brief  Server op
-	void WiFiServerStart( );
-	void WiFiServerShutdown( );
+	void WiFiServerStart();
+	void WiFiServerShutdown();
 	bool WiFiServerCheckNewConnection();
 	bool WiFiServerCheckIncomingCommand();
 	
 	/// @brief  Client op
-	bool WiFiClientConnectToServer( const char * serverIP, int serverPortNum );
-	void WiFiClientDisconnectFromServer( );
-	bool WiFiClientTransmitToServer( String message );
+	bool WiFiClientConnectToServer(const char * serverIP, int serverPortNum);
+	void WiFiClientDisconnectFromServer();
+	bool WiFiClientTransmitToServer(String message);
 
 	bool WiFiTest();
 

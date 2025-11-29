@@ -22,6 +22,10 @@ char    command[COMMAND_BUFFER_SIZE];
 
   bool 					serverConnected = false, clientConnected = false;
 #endif
+
+#ifdef USE_LCD
+  LiquidCrystal_I2C lcd(0x27, NUM_COLS, NUM_ROWS); // set the LCD address to 0x27 for a 16 chars and 2 line display
+#endif //USE_LCD
 /* -------------------------------------------------------------------------- */
 
 
@@ -43,6 +47,12 @@ void setup()
       Serial.println("LED Init ....................... FAILED");
     }
   #endif // USE_LED
+
+  /* -------------------------------- LCD INIT -------------------------------- */
+  #ifdef USE_LCD
+  Serial1.println("LCD Init ....................... OK");
+  LCD_Init(NUM_ROWS, NUM_COLS);
+  #endif // USE_LCD
 
   /* ------------------------------- BUTTON Init ------------------------------ */
   #ifdef USE_BUTTON
