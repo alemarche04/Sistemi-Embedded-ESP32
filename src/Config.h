@@ -1,0 +1,143 @@
+/**
+ * @file 		Config.h 
+ * @brief   Configuration file for embedded system  
+
+ */
+
+#include <Arduino.h>
+
+#undef   USE_LED
+#define  USE_LED
+
+#undef   USE_BUTTON
+#define  USE_BUTTON
+
+#undef		USE_LCD
+#define		USE_LCD
+
+#undef 		USE_WIFI
+#define 	USE_WIFI
+
+#ifdef USE_WIFI
+	#define		SERVER_MODE
+	#define   	CLIENT_MODE
+#else
+	#undef		SERVER_MODE
+	#undef    	CLIENT_MODE
+#endif
+
+
+/* -------------------------------------------------------------------------- */
+/*                               COMMON SECTION                               */
+/* -------------------------------------------------------------------------- */
+#define 			END_COMMAND_MARKER				'$'
+#define				COMMAND_BUFFER_SIZE				32
+extern char 		command[COMMAND_BUFFER_SIZE];
+extern int 			bufferOccupation;	
+void 				ProcessCommand( );
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 LED SECTION                                */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_LED
+
+int 	LEDInit( int pin );
+void	LEDon( int pin );
+void  	LEDoff( int pin );
+void 	LEDflash(int pin, int durationSec, int timelapMs = 1000 );
+bool	LEDTest( int pin );
+
+#endif // USE_LED
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                               /BUTTON SECTION                              */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_BUTTON
+
+int  ButtonInit( const int pin );
+bool ButtonPressed( const int pin );
+bool ButtonTest( int pin );
+
+#endif // USE_BUTTON
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 LCD SECTION                                */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_LCD
+	#include <LiquidCrystal_I2C.h>
+
+	bool LCD_Init(int numRows, int numCols);
+	void LCD_Write(int row, int col, char * message);
+	void LCD_Clear();
+	void LCD_SetCursor(int row, int col);
+#endif // USE_LCD
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                                WIFI  SECTION                               */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_WIFI
+
+	#include <WiFi.h>
+	#include <WiFiAP.h>
+	#include <WiFiMulti.h>
+	#include "arduino_secrets.h"
+
+	#define 	INVALID_WIFI_MODE			0
+	#define		AP_MODE						1
+	#define		EXT_WIFI_CLIENT_MODE		2
+
+	extern int					wifiMode;
+	extern WiFiMulti 			multiHandler;
+	extern WiFiClient     		clientOfServer, clientToRemoteServer;
+	extern bool 				serverConnected, clientConnected;
+
+	#ifdef SERVER_MODE
+		#define		SERVER_PORT		11777
+		extern 		WiFiServer 		server;
+	#endif
+	#ifdef CLIENT_MODE
+		#define 	NUM_RECONNECTION_TRIALS		5
+		#define		REMOTE_SERVER_PORT			11777
+	#endif
+
+	bool WiFiInit( int wifiMod );
+	bool WiFiConnectToAP( const char * ssid = 0, const char * password = 0 );
+	bool WiFiInitAP( const char * ssid, const char * password );
+
+	/// @brief  Server op
+	void WiFiServerStart( );
+	void WiFiServerShutdown( );
+	bool WiFiServerCheckNewConnection();
+	bool WiFiServerCheckIncomingCommand();
+	
+	/// @brief  Client op
+	bool WiFiClientConnectToServer( const char * serverIP, int serverPortNum );
+	void WiFiClientDisconnectFromServer( );
+	bool WiFiClientTransmitToServer( String message );
+
+	bool WiFiTest();
+
+#endif // USE_WIFI
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                               PIN DEFINITIONS                              */
+/* -------------------------------------------------------------------------- */
+
+#ifdef USE_LED
+#define LEDPIN 		5					/// Status LED pin
+#endif 
+#ifdef USE_BUTTON
+#define BUTTONPIN 	26					/// Interface button pin
+#endif 
+
+/* -------------------------------------------------------------------------- */
