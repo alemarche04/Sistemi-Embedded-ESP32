@@ -48,4 +48,14 @@
 		lcd.setCursor(col, row);
 	}
 
+	/* -------------------------------------------------------------------------- */
+	/**
+	* @brief  Sets cursor on LCD monitor
+	*/
+	void LCD_Test()
+	{
+		LCD_Clear();
+		LCD_Write(0, 0, "LCD active");
+	}
+
 #endif // USE_LCD

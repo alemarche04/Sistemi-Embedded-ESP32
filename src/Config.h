@@ -15,8 +15,11 @@
 #undef		USE_LCD
 #define		USE_LCD
 
-#undef 		USE_WIFI
+#undef 		USE_POT
+#define 	USE_POT
+
 #define 	USE_WIFI
+#undef 		USE_WIFI
 
 #ifdef USE_WIFI
 	#define		SERVER_MODE
@@ -83,6 +86,8 @@ bool ButtonTest(int pin);
 	void LCD_Write(int row, int col, const char * message);
 	void LCD_Clear();
 	void LCD_SetCursor(int row, int col);
+
+	void LCD_Test();
 #endif // USE_LCD
 /* -------------------------------------------------------------------------- */
 
@@ -145,6 +150,9 @@ bool ButtonTest(int pin);
 #endif 
 #ifdef USE_BUTTON
 #define BUTTONPIN 	26					/// Interface button pin
+#endif 
+#ifdef USE_POT
+#define POTPIN 	25						/// Potentiometer pin
 #endif 
 
 /* -------------------------------------------------------------------------- */

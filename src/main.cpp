@@ -50,8 +50,10 @@ void setup()
 
   /* -------------------------------- LCD INIT -------------------------------- */
   #ifdef USE_LCD
-  Serial1.println("LCD Init ....................... OK");
-  LCD_Init(NUM_ROWS, NUM_COLS);
+    Serial.println("LCD Init ....................... OK");
+    LCD_Init(NUM_ROWS, NUM_COLS);
+
+    LCD_Test(); delay(2000); LCD_Clear();
   #endif // USE_LCD
 
   /* ------------------------------- BUTTON Init ------------------------------ */
@@ -110,6 +112,15 @@ void setup()
 void loop() 
 { 
   bool commandPresent = false;
+  uint16_t potValue;
+
+  potValue = analogRead(POTPIN);
+  Serial.println(potValue);
+  #ifdef USE_LCD
+  LCD_Write(1, 4, "          ");
+  LCD_Write(1, 4, String(potValue).c_str());
+  #endif // USE_LCD
+  delay(100);
 
   #ifdef SERVER_MODE
     /// Verifies incoming connections
@@ -124,7 +135,7 @@ void loop()
     #ifdef USE_BUTTON
     if (ButtonPressed(BUTTONPIN)) // se viene premuto il pulsante viene eseguita la sequenza di comandi come client
     {
-      WiFiClientConnectToServer("192.168.1.115", SERVER_PORT); // tentativo di coneessione remoto sulla porta 11777
+      WiFiClientConnectToServer("192.168.1.115", SERVER_PORT); // tentativo di coneessione remoto sulla porta 11777ifdef USE_LC
       if (clientConnected) // se riesce a connettersi
       {
         WiFiClientTransmitToServer( "O$" ); // comando LED ON
