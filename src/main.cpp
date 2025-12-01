@@ -115,7 +115,7 @@ void setup()
   #endif // USE_WIFI
 
   /* ------------------------------- Servo Test ------------------------------- */
-  ServoTest(demoServo);
+  // ServoTest(demoServo);
 }
 /* -------------------------------------------------------------------------- */
 
@@ -133,12 +133,23 @@ void loop()
   uint16_t potValue;
 
   potValue = analogRead(POTPIN);
+
   Serial.println(potValue);
+
   #ifdef USE_LCD
-  LCDWrite(0, 4, "          ");
-  LCDWrite(0, 4, String(potValue).c_str());
+    LCDWrite(0, 0, "          ");
+    LCDWrite(0, 0, String(potValue).c_str());
   #endif // USE_LCD
   delay(100);
+
+  #ifdef USE_SERVO
+    int angle = map(potValue, 0, 4096, ENDSTOP_LOW, ENDSTOP_HIGH);
+    ServoSetAngle(demoServo, angle);
+    #ifdef USE_LCD
+      LCDWrite(1, 0, "   ");
+      LCDWrite(1, 0, String(angle).c_str());
+    #endif // USE_LCD
+  #endif // USE_SERVO
 
   #ifdef SERVER_MODE
     /// Verifies incoming connections
