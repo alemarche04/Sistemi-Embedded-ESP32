@@ -1,13 +1,13 @@
 /**
- * @file 		LED_Handler.cpp 
- * @brief  	Lezione 1 - Gestione LED  
+ * @file 	Button_Handler.cpp 
+ * @brief  	Embedded Systems Lab- Handling of button operations
  */
 
 #include "Config.h"
 
 #ifdef USE_BUTTON
 
-///////////////////////////////////////////////////////
+/* -------------------------------------------------------------------------- */
 /**
  * @brief  Initializes button operation
  */
@@ -18,7 +18,7 @@ int  ButtonInit( const int pin )
 	return 0;
 }
 
-///////////////////////////////////////////////////////
+/* -------------------------------------------------------------------------- */
 /**
  * @brief  Checks button status (NO DEBOUNCING)
  */
@@ -32,7 +32,7 @@ bool ButtonPressed( const int pin )
 	return false;
 }
 
-///////////////////////////////////////////////////////
+/* -------------------------------------------------------------------------- */
 /**
  * @brief  Diagnostic 
  */

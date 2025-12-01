@@ -1,6 +1,6 @@
 /**
- * @file 		Config.h 
- * @brief   Configuration file for embedded system  
+ * @file 	Config.h 
+ * @brief   Embedded Systems Lab- Configuration file
 
  */
 
@@ -17,6 +17,9 @@
 
 #undef 		USE_POT
 #define 	USE_POT
+
+#undef		USE_SERVO
+#define		USE_SERVO
 
 #define 	USE_WIFI
 #undef 		USE_WIFI
@@ -46,11 +49,11 @@ void 				ProcessCommand();
 /* -------------------------------------------------------------------------- */
 #ifdef USE_LED
 
-int 	LEDInit(int pin);
-void	LEDon(int pin);
-void  	LEDoff(int pin);
-void 	LEDflash(int pin, int durationSec, int timelapMs = 1000);
-bool	LEDTest(int pin);
+	int 	LEDInit(int pin);
+	void	LEDon(int pin);
+	void  	LEDoff(int pin);
+	void 	LEDflash(int pin, int durationSec, int timelapMs = 1000);
+	bool	LEDTest(int pin);
 
 #endif // USE_LED
 /* -------------------------------------------------------------------------- */
@@ -82,13 +85,32 @@ bool ButtonTest(int pin);
 
 	extern LiquidCrystal_I2C lcd; // global variable to set the LCD address
 
-	bool LCD_Init(int numRows, int numCols);
-	void LCD_Write(int row, int col, const char * message);
-	void LCD_Clear();
-	void LCD_SetCursor(int row, int col);
+	bool LCDInit(int numRows, int numCols);
+	void LCDWrite(int row, int col, const char * message);
+	void LCDClear();
+	void LCDSetCursor(int row, int col);
+	void LCDTest();
 
-	void LCD_Test();
 #endif // USE_LCD
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                                SERVO SECTION                               */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_SERVO
+
+	#include<ESP32Servo.h>
+	#define ENDSTOP_LOW 	10
+	#define ENDSTOP_HIGH 	170
+
+	extern Servo demoServo;
+
+	bool ServoInit(Servo &, int servoPin);
+	void ServoSetAngle(Servo &, int angleDeg);
+	void ServoTest(Servo &);
+
+#endif // USE_SERVO
 /* -------------------------------------------------------------------------- */
 
 
@@ -145,14 +167,17 @@ bool ButtonTest(int pin);
 /*                               PIN DEFINITIONS                              */
 /* -------------------------------------------------------------------------- */
 
-#ifdef USE_LED
-#define LEDPIN 		5					/// Status LED pin
+#ifdef 		USE_LED
+#define 	LEDPIN 		5					/// Status LED pin
 #endif 
-#ifdef USE_BUTTON
-#define BUTTONPIN 	26					/// Interface button pin
+#ifdef 		USE_BUTTON
+#define 	BUTTONPIN 	26					/// Interface button pin
 #endif 
-#ifdef USE_POT
-#define POTPIN 	25						/// Potentiometer pin
+#ifdef 		USE_POT
+#define 	POTPIN 		25					/// Potentiometer pin
+#endif 
+#ifdef 		USE_SERVO
+#define 	SERVOPIN 	33					/// Servo pin
 #endif 
 
 /* -------------------------------------------------------------------------- */

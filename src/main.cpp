@@ -1,6 +1,6 @@
 /**
- * @file main.cpp 
- * @brief  Lezione 1  
+ * @file    main.cpp 
+ * @brief   Embedded Systems Lab
 
  */
 
@@ -25,7 +25,11 @@ char    command[COMMAND_BUFFER_SIZE];
 
 #ifdef USE_LCD
   LiquidCrystal_I2C lcd(0x27, NUM_COLS, NUM_ROWS); // set the LCD address to 0x27 for a 16 chars and 2 line display
-#endif //USE_LCD
+#endif //USE_LCD	int 	LEDInit(int pin);
+
+#ifdef USE_SERVO
+  Servo demoServo;
+#endif // USE_SERVO
 /* -------------------------------------------------------------------------- */
 
 
@@ -51,9 +55,9 @@ void setup()
   /* -------------------------------- LCD INIT -------------------------------- */
   #ifdef USE_LCD
     Serial.println("LCD Init ....................... OK");
-    LCD_Init(NUM_ROWS, NUM_COLS);
+    LCDInit(NUM_ROWS, NUM_COLS);
 
-    LCD_Test(); delay(2000); LCD_Clear();
+    LCDTest(); delay(2000); LCDClear();
   #endif // USE_LCD
 
   /* ------------------------------- BUTTON Init ------------------------------ */
@@ -65,8 +69,15 @@ void setup()
     else 
     {
       Serial.println("Button Init .................... FAILED");
-  }
+    }
   #endif // USE_BUTTON
+
+  /* ------------------------------- SERVO Init ------------------------------- */
+  #ifdef USE_SERVO
+    Serial.println("Servo Init .................... OK");
+    ServoInit(demoServo, SERVOPIN);
+  #endif // USE_SERVO
+
 
   /* -------------------------------- WiFi Init ------------------------------- */
   #ifdef USE_WIFI
@@ -102,6 +113,9 @@ void setup()
       Serial.println(" (" + String(SERVER_PORT) +")");
     #endif
   #endif // USE_WIFI
+
+  /* ------------------------------- Servo Test ------------------------------- */
+  ServoTest(demoServo);
 }
 /* -------------------------------------------------------------------------- */
 
@@ -111,14 +125,18 @@ void setup()
 /* -------------------------------------------------------------------------- */
 void loop() 
 { 
+  //////////
+  //return;
+  //////////
+
   bool commandPresent = false;
   uint16_t potValue;
 
   potValue = analogRead(POTPIN);
   Serial.println(potValue);
   #ifdef USE_LCD
-  LCD_Write(1, 4, "          ");
-  LCD_Write(1, 4, String(potValue).c_str());
+  LCDWrite(0, 4, "          ");
+  LCDWrite(0, 4, String(potValue).c_str());
   #endif // USE_LCD
   delay(100);
 

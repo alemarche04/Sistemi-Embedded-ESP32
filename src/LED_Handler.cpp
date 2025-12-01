@@ -1,6 +1,6 @@
 /**
  * @file 		LED_Handler.cpp 
- * @brief  	Lezione 1 - Gestione LED  
+ * @brief  	Embedded Systems Lab- Handling of LED operations
  */
 
 #include "Config.h"
@@ -9,7 +9,7 @@
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief Inizializza LED sul pin designato
+ * @brief Initialization of LED on designated pin
 */ 
 int 	LEDInit( int pin )
 {
@@ -23,7 +23,7 @@ int 	LEDInit( int pin )
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief Accende  LED sul pin designato
+ * @brief Turns on LED on designated pin
  */ 
 void	LEDon( int pin )
 {
@@ -32,7 +32,7 @@ void	LEDon( int pin )
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief Spegne LED sul pin designato
+ * @brief Turns off LED on designated pin
  */ 
 void  LEDoff( int pin )
 {
@@ -41,7 +41,7 @@ void  LEDoff( int pin )
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief Lampeggia LED sul pin designato
+ * @brief Flashes LED on designated pin
  */ 
 void LEDflash(int pin, int durationSec, int timelapMs )
 {
@@ -52,8 +52,9 @@ void LEDflash(int pin, int durationSec, int timelapMs )
 }
 
 /* -------------------------------------------------------------------------- */
-/// Diagnostic LED sul pin designato
-
+/**
+ * @brief Diagnostic of LED on designated pin
+*/ 
 bool	LEDTest( int pin )
 {
   LEDflash(pin, 1, 300);
