@@ -1,8 +1,7 @@
 /**
  * @file 	Config.h 
  * @brief   Embedded Systems Lab- Configuration file
-
- */
+*/
 
 #include <Arduino.h>
 
@@ -20,6 +19,9 @@
 
 #undef		USE_SERVO
 #define		USE_SERVO
+
+#undef 		USE_SERIAL
+#define 	USE_SERIAL
 
 #define 	USE_WIFI
 #undef 		USE_WIFI
@@ -64,9 +66,9 @@ void 				ProcessCommand();
 /* -------------------------------------------------------------------------- */
 #ifdef USE_BUTTON
 
-int  ButtonInit(const int pin);
-bool ButtonPressed(const int pin);
-bool ButtonTest(int pin);
+	int  ButtonInit(const int pin);
+	bool ButtonPressed(const int pin);
+	bool ButtonTest(int pin);
 
 #endif // USE_BUTTON
 /* -------------------------------------------------------------------------- */
@@ -113,6 +115,21 @@ bool ButtonTest(int pin);
 #endif // USE_SERVO
 /* -------------------------------------------------------------------------- */
 
+
+/* -------------------------------------------------------------------------- */
+/*                               SERIAL SECTION                               */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_SERIAL
+
+	#define RXD2 27
+	#define TXD2 14
+
+	bool SerialInit();
+	bool SerialCheckIncomingCommand();
+	bool SerialTransmit(const char* message);
+
+#endif // USE_SERIAL
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                                WIFI  SECTION                               */

@@ -1,7 +1,7 @@
 /**
  * @file 		LED_Handler.cpp 
  * @brief  	Embedded Systems Lab- Handling of LED operations
- */
+*/
 
 #include "Config.h"
 

@@ -1,7 +1,7 @@
 /**
- * @file 	Servo_Handler.cpp 
- * @brief  	Embedded Systems Lab - Handling of servo operations
- */
+* @file 	Servo_Handler.cpp 
+* @brief  	Embedded Systems Lab - Handling of servo operations
+*/
 
 #include "Config.h"
 

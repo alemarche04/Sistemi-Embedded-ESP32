@@ -1,7 +1,7 @@
 /**
  * @file 	Button_Handler.cpp 
  * @brief  	Embedded Systems Lab- Handling of button operations
- */
+*/
 
 #include "Config.h"
 

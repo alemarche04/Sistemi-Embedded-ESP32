@@ -1,7 +1,7 @@
 /**
- * @file 		WiFi_Handler.cpp 
- * @brief  		Lezione 2 - Uso delle funzionalità WiFi di ESP32  
- */
+* @file 	WiFi_Handler.cpp 
+* @brief  	LEmbedded Systems Lab - Handling of Wi-Fi communications
+*/
 
 #include "Config.h"
 
@@ -10,8 +10,8 @@
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Checks for incoming connections to server
- */
+* @brief  Checks for incoming connections to server
+*/
 bool WiFiServerCheckIncomingCommand()
 {
 	char c;
@@ -54,8 +54,8 @@ bool WiFiServerCheckIncomingCommand()
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Client operation: transmit data to remote server
- */
+* @brief  Client operation: transmit data to remote server
+*/
 
 bool WiFiClientTransmitToServer( String message )
 {
@@ -77,8 +77,8 @@ bool WiFiClientTransmitToServer( String message )
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Initializes WiFi device operation
- */
+* @brief  Initializes WiFi device operation
+*/
 bool  WiFiInit( int wifiMod ) // inizializza il dispositivo come AP oppure come Client
 {
 	/* ------------------------------ AP mode Init ------------------------------ */
@@ -135,8 +135,8 @@ bool  WiFiInit( int wifiMod ) // inizializza il dispositivo come AP oppure come 
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Connects to external WiFi network
- */
+* @brief  Connects to external WiFi network
+*/
 bool WiFiConnectToAP( const char * ssid, const char * password )
 {
 	Serial.println();
@@ -163,8 +163,8 @@ bool WiFiConnectToAP( const char * ssid, const char * password )
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Initializes AccessPoint operation
- */
+* @brief  Initializes AccessPoint operation
+*/
 bool WiFiInitAP( const char * ssid, const char * password ) // inizializza le operazioni di AP
 {
 	if (!WiFi.softAP(ssid, password)) // funzione di libreria che configura il dispositivo come AP
@@ -178,8 +178,8 @@ bool WiFiInitAP( const char * ssid, const char * password ) // inizializza le op
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Starts server operation
- */
+* @brief  Starts server operation
+*/
 void WiFiServerStart( ) // avvia l'operazione di server
 {
 	server.begin();
@@ -188,8 +188,8 @@ void WiFiServerStart( ) // avvia l'operazione di server
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Closes server operation
- */
+* @brief  Closes server operation
+*/
 void WiFiServerShutdown( ) // chiude l'operazione di server
 {
 	server.stop();
@@ -198,8 +198,8 @@ void WiFiServerShutdown( ) // chiude l'operazione di server
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Checks for incoming connections to server
- */
+* @brief  Checks for incoming connections to server
+*/
 bool WiFiServerCheckNewConnection() // gestisce lo stato della connessione del client al server
 {
 	/// If server is connected, checks if connection still valid
@@ -230,8 +230,8 @@ bool WiFiServerCheckNewConnection() // gestisce lo stato della connessione del c
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Client operation: connection to remote server
- */
+* @brief  Client operation: connection to remote server
+*/
 
 bool WiFiClientConnectToServer( const char * serverIP, int serverPortNum ) // tenta di connettersi a un server specificato
 {
@@ -260,8 +260,8 @@ bool WiFiClientConnectToServer( const char * serverIP, int serverPortNum ) // te
 
 /* -------------------------------------------------------------------------- */
 /**
- * @brief  Client operation: disconnection from  remote server
- */
+* @brief  Client operation: disconnection from  remote server
+*/
 
 void WiFiClientDisconnectFromServer( ) // disconnette l'ESP dal server remoto
 {

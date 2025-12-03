@@ -1,8 +1,7 @@
 /**
  * @file    main.cpp 
  * @brief   Embedded Systems Lab
-
- */
+*/
 
 #include "Config.h"
 
@@ -78,6 +77,11 @@ void setup()
     ServoInit(demoServo, SERVOPIN);
   #endif // USE_SERVO
 
+  /* ------------------------------- SERIAL Init ------------------------------ */
+  #ifdef USE_SERIAL
+    Serial.println("Serial Init .................... OK");
+    SerialInit();
+  #endif // USE_SERIAL
 
   /* -------------------------------- WiFi Init ------------------------------- */
   #ifdef USE_WIFI
@@ -151,12 +155,33 @@ void loop()
     #endif // USE_LCD
   #endif // USE_SERVO
 
+
+  #ifdef USE_SERIAL
+    /// Receives and stores incoming commands if connected
+    if (SerialCheckIncomingCommand())
+      commandPresent = true;
+
+    #ifdef USE_BUTTON
+      if(ButtonPressed(BUTTONPIN))
+      {
+        SerialTransmit("O$");
+        delay(2000);
+        SerialTransmit("Q$");
+        delay(2000);
+      }
+    #endif // USE_BUTTON
+
+  #endif
+
+
+
+
   #ifdef SERVER_MODE
     /// Verifies incoming connections
     WiFiServerCheckNewConnection(); // verifica se un nuovo client è connesso o se il client attuale si è disconnesso
 
     /// Receives and stores incoming commands if connected
-    if ( 	WiFiServerCheckIncomingCommand() )
+    if ( WiFiServerCheckIncomingCommand())
       commandPresent = true;
   #endif
 
@@ -180,6 +205,6 @@ void loop()
   
   /// Possibly parses received command
   if (commandPresent) // se è stato ricevuto un comando
-    ProcessCommand( ); // elabora il comando
+    ProcessCommand(); // elabora il comando
 }
 /* -------------------------------------------------------------------------- */

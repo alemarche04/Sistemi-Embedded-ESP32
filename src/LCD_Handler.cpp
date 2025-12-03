@@ -1,7 +1,7 @@
 /**
  * @file 	LCD_Handler.cpp 
  * @brief  	Embedded Systems Lab- Handling of LCD monitor operations
- */
+*/
 
 #include "Config.h"
 
