@@ -13,7 +13,7 @@
 	*/
 	bool SerialInit()
 	{
-		Serial.begin(9600), SERIAL_8N1, RXD2, TXD2; 
+		Serial2.begin(9600), SERIAL_8N1, RXD2, TXD2; 
 		// 9600 = Baud Rate
 		// SERIAL_8N1 = 8 data bits, No parity, and 1 stop bit
 		return true;
@@ -27,10 +27,10 @@
 	{
 		char c;
 
-		while (Serial.available())  // checks if there are new thing in rx buffer
+		while (Serial2.available())  // checks if there are new thing in rx buffer
 		{     
 			// if there's bytes to read from the client,
-			c = Serial.read();     // read a byte, then
+			c = Serial2.read();     // read a byte, then
 			Serial.write(c);
 
 			/// Checks buffer overflow
@@ -73,16 +73,16 @@
 		}
 		Serial.println();
 
-		while(Serial.availableForWrite() == 0); // returns true if I can write
+		while(Serial2.availableForWrite() == 0); // returns true if I can write
 
 		// transmit individual bytes
 		int count = 0;
 		for(int k = 0; k < strlen(message); k++)
 		{
-			count += Serial.write(message[k]); // conta i caratteri
+			count += Serial2.write(message[k]); // conta i caratteri
 		}
 		
-		if(count != strlen(message)) // controlla il numero di caratteri mandati
+		if(count != strlen(message)) // controlla il numero di caratteri
 			return false;
 		
 		return true;

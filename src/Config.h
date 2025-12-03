@@ -20,8 +20,11 @@
 #undef		USE_SERVO
 #define		USE_SERVO
 
-#undef 		USE_SERIAL
+#undef		USE_US
+#define		USE_US
+
 #define 	USE_SERIAL
+#undef 		USE_SERIAL
 
 #define 	USE_WIFI
 #undef 		USE_WIFI
@@ -113,6 +116,22 @@ void 				ProcessCommand();
 	void ServoTest(Servo &);
 
 #endif // USE_SERVO
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                              US SENSOR SECTION                             */
+/* -------------------------------------------------------------------------- */
+#ifdef USE_US
+
+	#define TRIGGERPIN
+	#define ECHOPIN
+	#define SOUNDSPEED		0.0017150 // [cm_us]
+
+	bool USInit(int trigPin, int echoPin);
+	float UDdistanceCm(int trigPin, int echoPin, float speed = SOUNDSPEED);
+
+#endif // USE_US
 /* -------------------------------------------------------------------------- */
 
 
