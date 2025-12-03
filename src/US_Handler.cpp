@@ -21,7 +21,7 @@
 	/**
 	* @brief  Computes distance with US sensor
 	*/
-	float UDdistanceCm(int trigPin, int echoPin, float speed = SOUNDSPEED)
+	float UDdistanceCm(int trigPin, int echoPin, float speed)
 	{
 		unsigned long timeFlightUs;
 

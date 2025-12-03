@@ -130,6 +130,7 @@ void 				ProcessCommand();
 
 	bool USInit(int trigPin, int echoPin);
 	float UDdistanceCm(int trigPin, int echoPin, float speed = SOUNDSPEED);
+	bool CheckAlarmUS(float minDistance);
 
 #endif // USE_US
 /* -------------------------------------------------------------------------- */

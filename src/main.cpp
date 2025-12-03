@@ -136,16 +136,28 @@ void loop()
   bool commandPresent = false;
   uint16_t potValue;
 
-  potValue = analogRead(POTPIN);
+  #ifdef USE_US
+    if(CheckAlarmUS(10))
+    {
 
+    }
+  #endif // USE_US
+
+  
+/* ---------- read potentiometer value and prints on serial monitor --------- */
+  potValue = analogRead(POTPIN);
   Serial.println(potValue);
 
+
+/* -------------------- writes potentiometer value on LCD ------------------- */
   #ifdef USE_LCD
     LCDWrite(0, 0, "    ");
     LCDWrite(0, 0, String(potValue).c_str());
   #endif // USE_LCD
   delay(100);
 
+
+/* -------------- moves servo according to potentiometer value -------------- */
   #ifdef USE_SERVO
     int angle = map(potValue, 0, 4096, ENDSTOP_LOW, ENDSTOP_HIGH);
     ServoSetAngle(demoServo, angle);
@@ -156,6 +168,7 @@ void loop()
   #endif // USE_SERVO
 
 
+/* ------------ Sends and recieves message with serial connection ----------- */
   #ifdef USE_SERIAL
     /// Receives and stores incoming commands if connected
     if (SerialCheckIncomingCommand())
@@ -175,7 +188,7 @@ void loop()
 
 
 
-
+/* ------------ Sends and recieves message with Wi-Fi connection ------------ */
   #ifdef SERVER_MODE
     /// Verifies incoming connections
     WiFiServerCheckNewConnection(); // verifica se un nuovo client è connesso o se il client attuale si è disconnesso
