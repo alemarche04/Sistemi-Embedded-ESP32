@@ -137,7 +137,7 @@ void loop()
   Serial.println(potValue);
 
   #ifdef USE_LCD
-    LCDWrite(0, 0, "          ");
+    LCDWrite(0, 0, "    ");
     LCDWrite(0, 0, String(potValue).c_str());
   #endif // USE_LCD
   delay(100);
@@ -146,8 +146,8 @@ void loop()
     int angle = map(potValue, 0, 4096, ENDSTOP_LOW, ENDSTOP_HIGH);
     ServoSetAngle(demoServo, angle);
     #ifdef USE_LCD
-      LCDWrite(1, 0, "   ");
-      LCDWrite(1, 0, String(angle).c_str());
+      LCDWrite(0, 7, "   ");
+      LCDWrite(0, 7, String(angle).c_str());
     #endif // USE_LCD
   #endif // USE_SERVO
 

@@ -101,8 +101,8 @@ bool ButtonTest(int pin);
 #ifdef USE_SERVO
 
 	#include<ESP32Servo.h>
-	#define ENDSTOP_LOW 	10
-	#define ENDSTOP_HIGH 	170
+	#define ENDSTOP_LOW 	5
+	#define ENDSTOP_HIGH 	175
 
 	extern Servo demoServo;
 

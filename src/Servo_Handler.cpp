@@ -19,7 +19,7 @@
 		ESP32PWM::allocateTimer(3);
 
 		servoObj.setPeriodHertz(50);    // standard 50 hz servo
-		servoObj.attach(servoPin, 1000, 2000); // attaches the servo on pin 18 to the servo object
+		servoObj.attach(servoPin, 500, 2500); // attaches the servo on pin 18 to the servo object
 		// using default min/max of 1000us and 2000us
 		// different servos may require different min/max settings
 		// for an accurate 0 to 180 sweep
