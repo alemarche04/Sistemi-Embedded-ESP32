@@ -19,7 +19,7 @@
 
 /* -------------------------------------------------------------------------- */
 	/**
-	* @brief  Calculates distange from object
+	* @brief  Computes distance with US sensor
 	*/
 	float UDdistanceCm(int trigPin, int echoPin, float speed = SOUNDSPEED)
 	{
@@ -38,9 +38,11 @@
 
 		if(timeFlightUs == 0)
 		{
-			
+			return -1;
 		}
 
+		float distance = speed * timeFlightUs;
+		return distance;
 	}
 
 #endif // USE_US
